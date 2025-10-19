@@ -31,10 +31,12 @@ public class StringAddCalculator {
         return sum;
     }
 
-
-
     // 다음 커밋에서 사용 예정
     private static int toPositiveNumber(String text) {
-        return Integer.parseInt(text);
+        int number = Integer.parseInt(text);
+        if (number < 0) {
+            throw new IllegalArgumentException("음수는 허용되지 않습니다: " + number);
+        }
+        return number;
     }
 }
