@@ -7,10 +7,21 @@ public class StringAddCalculator {
             return 0;
         }
 
-        // 기본 구분자: 쉼표 또는 콜론
+        // 윈도우 개행 및 이스케이프된 \n 모두 처리
+        input = input.replace("\\n", "\n").replace("\r\n", "\n");
+
         String delimiter = ",|:";
 
-        // 아직 커스텀 구분자 X (다음 단계)
+        // 커스텀 구분자 처리: 문자열이 // 로 시작
+        if (input.startsWith("//")) {
+            int index = input.indexOf("\n");
+            if (index == -1) {
+                throw new IllegalArgumentException("커스텀 구분자 형식이 올바르지 않습니다.");
+            }
+            delimiter = input.substring(2, index); // 한 글자 구분자
+            input = input.substring(index + 1);    // 숫자만 남김
+        }
+
         String[] tokens = input.split(delimiter);
 
         int sum = 0;
@@ -19,6 +30,7 @@ public class StringAddCalculator {
         }
         return sum;
     }
+
 
 
     // 다음 커밋에서 사용 예정
